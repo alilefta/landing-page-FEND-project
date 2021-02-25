@@ -4,6 +4,8 @@
 
 ## Simple landing page made with **love and also HTML, CSS, Javascript** for the interactivity.
 
+## Review demo app https://landing-page-fend-project.vercel.app/
+
 ### Features:
 
 1. Auto Generate a Navbar html item by using javascript DOM manipulation on **Document** first loaded.
