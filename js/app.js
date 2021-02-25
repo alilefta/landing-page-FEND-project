@@ -31,23 +31,14 @@ const sections = document.querySelectorAll("[data-nav]");
 */
 
 const elementInViewport2 = (el) => {
-    let top = el.offsetTop;
-    let left = el.offsetLeft;
-    const width = el.offsetWidth;
-    const height = el.offsetHeight;
-
-    while(el.offsetParent) {
-        el = el.offsetParent;
-        top += el.offsetTop;
-        left += el.offsetLeft;
+    const bounding = el.getBoundingClientRect();
+    if(bounding.y < 200 && bounding.y > -(bounding.height)){
+        return true;
+    }
+    else{
+        return false;
     }
 
-    return (
-        top < (window.pageYOffset + window.innerHeight) &&
-        left < (window.pageXOffset + window.innerWidth) &&
-        (top + height) > window.pageYOffset &&
-        (left + width) > window.pageXOffset
-    );
 };
 
 const removeCollapse = (element)=> {
@@ -113,12 +104,18 @@ const returnToTop = () => {
 const addActiveClass = ()=> {
     sections.forEach(section => {
         if(elementInViewport2(section)){
-            section.style.opacity = 1;
-            section.style.transition = ".9s linear opacity";
             section.classList.add("your-active-class");
+            const highlight = document.querySelectorAll('#navbar__list li a');
+            highlight.forEach(e=> {
+                if(e.innerText === section.querySelector('h2').innerText){
+                    e.style.backgroundColor = '#000';
+                    e.style.color = "#fff"
+                }else{
+                    e.style.backgroundColor = '#fff';
+                    e.style.color = "#000"
+                }
+            })
         }else{
-            section.style.opacity = 0;
-            section.style.transition = "1s linear opacity";
             section.classList.remove("your-active-class");
         }
     });
